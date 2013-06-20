@@ -29,7 +29,7 @@
   'includes': ['build/common.gypi'],
 
   'conditions': [
-    [ 'os_posix == 1 and OS != "mac" and OS != "ios"', {
+    [ 'os_posix == 1 and OS != "ios"', {
       'conditions': [
         ['sysroot!=""', {
           'variables': {
@@ -43,7 +43,7 @@
       ],
     }],
 
-    ['OS=="linux" or OS=="android"', {
+    ['OS=="linux" or OS=="android" or OS=="mac"', {
       'targets': [
         {
           'target_name': 'libjingle_peerconnection_so',
