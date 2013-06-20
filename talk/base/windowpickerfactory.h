@@ -54,7 +54,8 @@ class WindowPickerFactory {
 #if defined(WIN32)
     return new Win32WindowPicker();
 #elif defined(OSX)
-    return new MacWindowPicker();
+    //return new MacWindowPicker();
+    return NULL;
 #elif defined(LINUX)
     return new LinuxWindowPicker();
 #else

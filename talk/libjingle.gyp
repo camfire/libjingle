@@ -510,12 +510,12 @@
             'base/maccocoathreadhelper.mm',
             'base/macconversion.cc',
             'base/macconversion.h',
-            'base/macsocketserver.cc',
-            'base/macsocketserver.h',
-            'base/macutils.cc',
-            'base/macutils.h',
-            'base/macwindowpicker.cc',
-            'base/macwindowpicker.h',
+            #'base/macsocketserver.cc',
+            #'base/macsocketserver.h',
+            #'base/macutils.cc',
+            #'base/macutils.h',
+            #'base/macwindowpicker.cc',
+            #'base/macwindowpicker.h',
             'base/scoped_autorelease_pool.mm',
           ],
           'link_settings': {
@@ -525,7 +525,7 @@
             ],
             'xcode_settings': {
               'OTHER_LDFLAGS': [
-                '-framework Carbon',
+                #'-framework Carbon',
                 '-framework Cocoa',
                 '-framework IOKit',
                 '-framework Security',
@@ -779,8 +779,8 @@
         }],
         ['OS=="mac"', {
           'sources': [
-            'media/devices/carbonvideorenderer.cc',
-            'media/devices/carbonvideorenderer.h',
+            #'media/devices/carbonvideorenderer.cc',
+            #'media/devices/carbonvideorenderer.h',
             'media/devices/macdeviceinfo.cc',
             'media/devices/macdevicemanager.cc',
             'media/devices/macdevicemanager.h',

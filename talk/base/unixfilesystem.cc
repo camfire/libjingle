@@ -345,19 +345,20 @@ bool UnixFilesystem::GetFileTime(const Pathname& path, FileTimeType which,
 
 bool UnixFilesystem::GetAppPathname(Pathname* path) {
 #ifdef OSX
-  ProcessSerialNumber psn = { 0, kCurrentProcess };
-  CFDictionaryRef procinfo = ProcessInformationCopyDictionary(&psn,
-      kProcessDictionaryIncludeAllInformationMask);
-  if (NULL == procinfo)
-    return false;
-  CFStringRef cfpath = (CFStringRef) CFDictionaryGetValue(procinfo,
-      kIOBundleExecutableKey);
-  std::string path8;
-  bool success = ToUtf8(cfpath, &path8);
-  CFRelease(procinfo);
-  if (success)
-    path->SetPathname(path8);
-  return success;
+//  ProcessSerialNumber psn = { 0, kCurrentProcess };
+//  CFDictionaryRef procinfo = ProcessInformationCopyDictionary(&psn,
+//      kProcessDictionaryIncludeAllInformationMask);
+//  if (NULL == procinfo)
+//    return false;
+//  CFStringRef cfpath = (CFStringRef) CFDictionaryGetValue(procinfo,
+//      kIOBundleExecutableKey);
+//  std::string path8;
+//  bool success = ToUtf8(cfpath, &path8);
+//  CFRelease(procinfo);
+//  if (success)
+//    path->SetPathname(path8);
+//  return success;
+return false;
 #else  // OSX
   char buffer[NAME_MAX+1];
   size_t len = readlink("/proc/self/exe", buffer, ARRAY_SIZE(buffer) - 1);
@@ -376,15 +377,16 @@ bool UnixFilesystem::GetAppDataFolder(Pathname* path, bool per_user) {
   // First get the base directory for app data.
 #ifdef OSX
   if (per_user) {
-    // Use ~/Library/Application Support/<orgname>/<appname>/
-    FSRef fr;
-    if (0 != FSFindFolder(kUserDomain, kApplicationSupportFolderType,
-                          kCreateFolder, &fr))
-      return false;
-    unsigned char buffer[NAME_MAX+1];
-    if (0 != FSRefMakePath(&fr, buffer, ARRAY_SIZE(buffer)))
-      return false;
-    path->SetPathname(reinterpret_cast<char*>(buffer), "");
+//    // Use ~/Library/Application Support/<orgname>/<appname>/
+//    FSRef fr;
+//    if (0 != FSFindFolder(kUserDomain, kApplicationSupportFolderType,
+//                          kCreateFolder, &fr))
+//      return false;
+//    unsigned char buffer[NAME_MAX+1];
+//    if (0 != FSRefMakePath(&fr, buffer, ARRAY_SIZE(buffer)))
+//      return false;
+//    path->SetPathname(reinterpret_cast<char*>(buffer), "");
+    return false;
   } else {
     // TODO
     return false;

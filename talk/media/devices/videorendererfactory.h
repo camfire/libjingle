@@ -45,14 +45,15 @@ class VideoRendererFactory {
   #if defined(LINUX) && defined(HAVE_GTK)
     return new GtkVideoRenderer(x, y);
   #elif defined(OSX) && !defined(CARBON_DEPRECATED)
-    CarbonVideoRenderer* renderer = new CarbonVideoRenderer(x, y);
-    // Needs to be initialized on the main thread.
-    if (renderer->Initialize()) {
-      return renderer;
-    } else {
-      delete renderer;
-      return NULL;
-    }
+//    CarbonVideoRenderer* renderer = new CarbonVideoRenderer(x, y);
+//    // Needs to be initialized on the main thread.
+//    if (renderer->Initialize()) {
+//      return renderer;
+//    } else {
+//      delete renderer;
+//      return NULL;
+//    }
+    return NULL;
   #elif defined(WIN32)
     return new GdiVideoRenderer(x, y);
   #else
