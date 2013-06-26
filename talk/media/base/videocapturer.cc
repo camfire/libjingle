@@ -418,7 +418,7 @@ void VideoCapturer::SetCaptureState(CaptureState state) {
   }
   StateChangeParams* state_params = new StateChangeParams(state);
   capture_state_ = state;
-  thread_->Post(this, MSG_STATE_CHANGE, state_params);
+  // thread_->Post(this, MSG_STATE_CHANGE, state_params);
 }
 
 void VideoCapturer::OnMessage(talk_base::Message* message) {

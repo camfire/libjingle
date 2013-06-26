@@ -64,6 +64,9 @@
 #include "talk/base/logging.h"
 #include "talk/base/ssladapter.h"
 #include "talk/media/base/videocapturer.h"
+#include "talk/media/base/fakevideocapturer.h"
+#include "talk/media/base/fakevideorenderer.h"
+#include "talk/app/webrtc/test/fakevideotrackrenderer.h"
 #include "talk/media/base/videorenderer.h"
 #include "talk/media/devices/videorendererfactory.h"
 #include "talk/media/webrtc/webrtcvideocapturer.h"
@@ -1040,6 +1043,42 @@ JOW(jlong, PeerConnectionFactory_nativeCreateVideoSource)(
   return (jlong)source.release();
 }
 
+// jgrowl
+
+JOW(jlong, PeerConnectionFactory_nativeCreateVideoSourceFromVideoTrack)(
+    // JNIEnv* jni, jclass, jlong native_factory) {
+    JNIEnv* jni, jclass, jlong native_factory, jlong j_video_track_pointer) {
+  talk_base::scoped_refptr<PeerConnectionFactoryInterface> factory(
+      reinterpret_cast<PeerConnectionFactoryInterface*>(native_factory));
+
+
+  talk_base::scoped_refptr<VideoTrackInterface> track(
+      reinterpret_cast<VideoTrackInterface*>(j_video_track_pointer));
+
+  webrtc::FakeVideoTrackRenderer* vtr = new webrtc::FakeVideoTrackRenderer(track);
+
+  cricket::VideoCapturer* vc = vtr->video_capturer;
+
+    talk_base::scoped_refptr<VideoSourceInterface> source(
+      factory->CreateVideoSource(
+          // reinterpret_cast<cricket::VideoCapturer*>(native_capturer),
+          vc,
+          // constraints.get()
+          NULL
+          ));
+  return (jlong)source.release();
+
+}
+
+// JOW(void, VideoTrack_nativeAddRenderer)(
+//     JNIEnv* jni, jclass,
+//     jlong j_video_track_pointer, jlong j_renderer_pointer) {
+//   talk_base::scoped_refptr<VideoTrackInterface> track(
+//       reinterpret_cast<VideoTrackInterface*>(j_video_track_pointer));
+//   track->AddRenderer(
+//       reinterpret_cast<VideoRendererInterface*>(j_renderer_pointer));
+// }
+
 JOW(jlong, PeerConnectionFactory_nativeCreateVideoTrack)(
     JNIEnv* jni, jclass, jlong native_factory, jstring id,
     jlong native_source) {
@@ -1284,6 +1323,31 @@ JOW(jlong, VideoCapturer_nativeCreateVideoCapturer)(
       device_manager->CreateVideoCapturer(device));
   return (jlong)capturer.release();
 }
+
+// // jgrowl
+// JOW(jlong, VideoCapturer_nativeCreateFakeVideoCapturer)(
+//     JNIEnv* jni, jclass) {
+//   talk_base::scoped_ptr<cricket::VideoCapturer> capturer(
+//       new cricket::FakeVideoCapturer());
+//   return (jlong)capturer.release();
+// }
+
+// JOW(void, VideoCapturer_nativeFakeSignalVideoFrame)(
+//     JNIEnv* jni, jclass, jobject j_vc) {
+//   // cricket::FakeVideoCapturer* vc = (cricket::FakeVideoCapturer*)j_vc;
+//   // cricket::VideoFrame* vf = (cricket::VideoFrame*)j_p_vf;
+//   // vc->IsScreencast();
+//   // vc->SignalVideoFrame(vc, vf);
+// }
+
+// static talk_base::scoped_refptr<PeerConnectionInterface> ExtractNativePC(
+//     JNIEnv* jni, jobject j_pc) {
+//   jfieldID native_pc_id = GetFieldID(jni,
+//       GetObjectClass(jni, j_pc), "nativePeerConnection", "J");
+//   jlong j_p = GetLongField(jni, j_pc, native_pc_id);
+//   return talk_base::scoped_refptr<PeerConnectionInterface>(
+//       reinterpret_cast<PeerConnectionInterface*>(j_p));
+// }
 
 JOW(jlong, VideoRenderer_nativeCreateGuiVideoRenderer)(
     JNIEnv* jni, jclass, int x, int y) {

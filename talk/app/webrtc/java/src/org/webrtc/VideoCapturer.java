@@ -43,11 +43,25 @@ public class VideoCapturer {
     return new VideoCapturer(nativeVideoCapturer);
   }
 
+  // // jgrowl
+  // public void fakeSignalVideoFrame(VideoRenderer.I420Frame i420Frame) {
+  //   nativeFakeSignalVideoFrame(i420Frame);
+  // }
+
+  // public static VideoCapturer createFakeVideoCapturer() {
+  //   return new VideoCapturer(nativeCreateFakeVideoCapturer());
+  // }
+
   public void dispose() {
     free(nativeVideoCapturer);
   }
 
   private static native long nativeCreateVideoCapturer(String deviceName);
+
+  // // jgrowl
+  // private static native long nativeCreateFakeVideoCapturer();
+
+  // private static native void nativeFakeSignalVideoFrame(VideoRenderer.I420Frame i420Frame);
 
   private static native void free(long nativeVideoCapturer);
 }

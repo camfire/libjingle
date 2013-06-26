@@ -72,6 +72,15 @@
               },
             }],
           ],
+          'conditions': [
+            ['OS=="mac"', {
+              'include_dirs': [
+                '<(java_home)/include',
+                '<(java_home)/include/darwin',
+              ],   
+            }],  
+          ], 
+
         },
         {
           'target_name': 'libjingle_peerconnection_jar',

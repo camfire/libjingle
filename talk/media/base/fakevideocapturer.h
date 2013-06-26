@@ -42,6 +42,7 @@ namespace cricket {
 // Fake video capturer that allows the test to manually pump in frames.
 class FakeVideoCapturer : public cricket::VideoCapturer {
  public:
+  long nativeVideoCapturer;
   FakeVideoCapturer()
       : running_(false),
         initial_unix_timestamp_(time(NULL) * talk_base::kNumNanosecsPerSec),
@@ -59,6 +60,7 @@ class FakeVideoCapturer : public cricket::VideoCapturer {
         cricket::VideoFormat::FpsToInterval(30), cricket::FOURCC_I420));
     ResetSupportedFormats(formats);
   }
+
   ~FakeVideoCapturer() {
     SignalDestroyed(this);
   }

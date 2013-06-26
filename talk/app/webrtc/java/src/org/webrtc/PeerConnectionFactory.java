@@ -80,6 +80,17 @@ public class PeerConnectionFactory {
         nativeFactory, capturer.nativeVideoCapturer, constraints));
   }
 
+  // jgrowl
+  // public VideoSource createVideoSourceFromVideoTrack(VideoTrack VideoTrack) {
+  //   return new VideoSource(nativeCreateVideoSourceFromVideoTrack());
+  // }
+
+  public VideoSource createVideoSourceFromVideoTrack(VideoTrack videoTrack) {
+    return new VideoSource(nativeCreateVideoSourceFromVideoTrack(nativeFactory, videoTrack.nativeTrack));
+  }
+
+  private static native long nativeCreateVideoSourceFromVideoTrack(long nativeFactory, long nativeVideoTrack);
+
   public VideoTrack createVideoTrack(String id, VideoSource source) {
     return new VideoTrack(nativeCreateVideoTrack(
         nativeFactory, id, source.nativeSource));

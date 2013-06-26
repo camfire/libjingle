@@ -189,7 +189,7 @@ class VideoCapturer
   }
 
   // Pause the video capturer.
-  virtual bool Pause(bool paused);
+virtual bool Pause(bool paused);
   // Stop the video capturer.
   virtual void Stop() = 0;
   // Check if the video capturer is running.

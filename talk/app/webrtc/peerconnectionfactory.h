@@ -97,6 +97,7 @@ class PeerConnectionFactory : public PeerConnectionFactoryInterface,
   talk_base::scoped_refptr<VideoSourceInterface> CreateVideoSource_s(
       cricket::VideoCapturer* capturer,
       const MediaConstraintsInterface* constraints);
+
   talk_base::scoped_refptr<PeerConnectionInterface> CreatePeerConnection_s(
       const PeerConnectionInterface::IceServers& configuration,
       const MediaConstraintsInterface* constraints,
