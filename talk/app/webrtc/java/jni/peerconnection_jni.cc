@@ -1046,7 +1046,6 @@ JOW(jlong, PeerConnectionFactory_nativeCreateVideoSource)(
 // jgrowl
 
 JOW(jlong, PeerConnectionFactory_nativeCreateVideoSourceFromVideoTrack)(
-    // JNIEnv* jni, jclass, jlong native_factory) {
     JNIEnv* jni, jclass, jlong native_factory, jlong j_video_track_pointer) {
   talk_base::scoped_refptr<PeerConnectionFactoryInterface> factory(
       reinterpret_cast<PeerConnectionFactoryInterface*>(native_factory));
@@ -1061,23 +1060,14 @@ JOW(jlong, PeerConnectionFactory_nativeCreateVideoSourceFromVideoTrack)(
 
     talk_base::scoped_refptr<VideoSourceInterface> source(
       factory->CreateVideoSource(
-          // reinterpret_cast<cricket::VideoCapturer*>(native_capturer),
           vc,
-          // constraints.get()
           NULL
           ));
   return (jlong)source.release();
 
 }
 
-// JOW(void, VideoTrack_nativeAddRenderer)(
-//     JNIEnv* jni, jclass,
-//     jlong j_video_track_pointer, jlong j_renderer_pointer) {
-//   talk_base::scoped_refptr<VideoTrackInterface> track(
-//       reinterpret_cast<VideoTrackInterface*>(j_video_track_pointer));
-//   track->AddRenderer(
-//       reinterpret_cast<VideoRendererInterface*>(j_renderer_pointer));
-// }
+
 
 JOW(jlong, PeerConnectionFactory_nativeCreateVideoTrack)(
     JNIEnv* jni, jclass, jlong native_factory, jstring id,
