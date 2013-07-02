@@ -1,0 +1,11 @@
+#!/usr/bin/python
+import shutil
+from subprocess import call
+
+call(["ninja", "-C", "out/Debug",  "libjingle_peerconnection_jar"])
+
+print 'Installing libjingle_peerconnection_so'
+shutil.copyfile('/Users/jonathan/code/active/libjingle/trunk/out/Debug/jingle_peerconnection_so.so', '/usr/lib/java/libjingle_peerconnection_so.jnilib')
+
+print 'Installing libjingle_peerconnection_jar'
+shutil.copyfile('/Users/jonathan/code/active/libjingle/trunk/out/Debug/libjingle_peerconnection.jar', '/Users/jonathan/Code/spectr.us/camfire-tv/media-server/lib/libjingle_peerconnection.jar')
